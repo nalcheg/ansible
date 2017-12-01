@@ -1,0 +1,48 @@
+---
+- hosts: all
+  tasks:
+    - name: add group
+      group:
+        name: developers
+        state: present
+    - name: Allow 'sudo' group to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%sudo'
+        line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+        validate: visudo -cf %s
+- hosts: all
+  tasks:
+    - name: add user
+      user:
+        name: "{{ item }}"
+        shell: /bin/bash
+        group: developers
+        groups: sudo
+        createhome: yes
+        # mkpasswd --method=sha-512
+        # 123456
+        # password: "$6$SzLLiYoJ$r0MLpQ9/avF4nVz.JsdKB29rUue18CpgAs7trLTOt3eFXLJPMgvH7KmgcEWnuqB3O8wBvTpLVvvI0insocizZ1"
+      with_items:
+        - %USERNAME1%
+        - %USERNAME1%
+    - name: Set authorized key took from file
+      authorized_key:
+        user: "{{ item }}"
+        state: present
+        key: "{{ lookup('file', '/etc/ansible/sshUsersKeys/{{ item }}.pub') }}"
+      with_items:
+        - %USERNAME1%
+        - %USERNAME1%
+- hosts: all
+  tasks:
+    - name: copy .tmux.conf to user home
+      copy:
+        src: /etc/ansible/configsToCopy/.tmux.conf
+        dest: /home/{{item}}/.tmux.conf
+        owner: "{{ item }}"
+        group: users
+        mode: 0644
+      with_items:
+        - %USERNAME1%

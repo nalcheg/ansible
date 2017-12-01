@@ -1,0 +1,21 @@
+---
+- hosts: all
+  tasks:
+    - name: multiple install
+      action: >
+        {{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes
+      with_items:
+        - sudo
+        - login
+        - passwd
+        - tzdata
+        - vim
+        - bash
+        - tmux
+        - dnsutils
+        - binutils
+        - eject
+        - ca-certificates
+        - openssh-client
+        - openssh-server
+        - openssl

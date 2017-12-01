@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: copy file from ansible server to host
+      copy:
+        src: /etc/ansible/src.filename
+        dest: /tmp/dst.filename
+        owner: root
+        group: root
+        mode: 0644

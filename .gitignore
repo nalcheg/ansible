@@ -1,0 +1,5 @@
+/.idea/
+/ansible.cfg
+/hosts
+/sshUsersKeys/
+/ansible.key
