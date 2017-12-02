@@ -1,0 +1,28 @@
+- hosts: test
+  tasks:
+    - name: run command and display her stdout
+      shell: ls -lvha /tmp | fgrep tmp
+      register: shell_result
+      args:
+        chdir: /tmp
+        executable: /bin/bash
+    - debug:
+        var: shell_result.changed
+    - debug:
+        var: shell_result.cmd # выполняемая команда
+    - debug:
+        var: shell_result.delta # время выполнения команды
+    - debug:
+        var: shell_result.end # время завершения выполнения команды
+    - debug:
+        var: shell_result.rc # код возврата
+    - debug:
+        var: shell_result.start # время начала выполнения команды
+    - debug:
+        var: shell_result.stderr # stderr выполнения
+    - debug:
+        var: shell_result.stdout # неформатированный stdout выполнения
+    - debug:
+        var: shell_result.stdout_lines # разбитый по линиям stdout выполнения
+    - debug:
+        var: shell_result.warnings
