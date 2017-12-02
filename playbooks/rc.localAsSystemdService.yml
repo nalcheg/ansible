@@ -1,0 +1,20 @@
+---
+- hosts: mytest
+  tasks:
+    - copy:
+        src: /etc/ansible/configsToCopy/rc-local.service/rc.local
+        dest: /etc/rc.local
+        owner: root
+        group: root
+        mode: 0700
+    - copy:
+        src: /etc/ansible/configsToCopy/rc-local.service/rc-local.service
+        dest: /etc/systemd/system/rc-local.service
+        owner: root
+        group: root
+        mode: 0666
+#    - systemd:
+#        name: rc-local
+#        enabled: yes
+#        masked: no
+#        state: restarted
