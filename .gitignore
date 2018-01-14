@@ -3,3 +3,6 @@
 /hosts
 /sshUsersKeys/
 /ansible.key
+/venv/
+/inventories/
+/private/
