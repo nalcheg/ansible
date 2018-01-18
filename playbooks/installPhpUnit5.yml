@@ -1,0 +1,9 @@
+- name: download phpunit-5.phar
+  get_url:
+    url: https://phar.phpunit.de/phpunit-5.phar
+    dest: /usr/local/bin/phpunit
+
+- name: set runnable
+  file:
+    path: /usr/local/bin/phpunit
+    mode: "+x"
