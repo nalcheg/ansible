@@ -1,0 +1,9 @@
+- name: "Install base software packages"
+  action: >
+    {{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes
+  with_items:
+    - curl
+    - sudo
+    - vim
+    - git
+    - rsync

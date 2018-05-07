@@ -1,0 +1,12 @@
+---
+- name: "Install Tmux"
+  action: >
+    {{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes
+  with_items:
+    - tmux
+
+- name: "copy .tmux.conf to {{ hostvars[inventory_hostname].ansible_env.HOME }} home"
+  copy:
+    src: .tmux.conf
+    dest: "{{ hostvars[inventory_hostname].ansible_env.HOME }}/.tmux.conf"
+    mode: 0600

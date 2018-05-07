@@ -1,7 +1,7 @@
 ---
 - hosts: all
   tasks:
-#  - name: get variables
-#    debug: var=hostvars[inventory_hostname]
-  - name: get variables
-    debug: var=hostvars[inventory_hostname].ansible_default_ipv4.address
+  - name: "get variables"
+    debug: var=hostvars[inventory_hostname]
+  - debug: var=hostvars[inventory_hostname].ansible_default_ipv4.address
+  - debug: var=hostvars[inventory_hostname].ansible_env.HOME

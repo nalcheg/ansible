@@ -1,0 +1,19 @@
+- name: "Install packages for Magento 2"
+  action: >
+    {{ ansible_pkg_mgr }} name={{ item }} state=latest update_cache=yes
+  with_items:
+    - mariadb-server
+    - apache2
+    - php
+    - php-mysql
+    - php-bcmath
+    - php-zip
+    - php-gd
+    - php-dom
+    - php-simplexml
+    - php-mbstring
+    - php-mcrypt
+    - php-curl
+    - php-intl
+    - php-soap
+    - php-iconv
