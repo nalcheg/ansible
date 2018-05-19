@@ -1,0 +1,17 @@
+- name: "Script copy"
+  copy:
+    src: "{{ lookup('env','DCNAME') }}.bash"
+    dest: "/tmp/{{ lookup('env','DCNAME') }}.bash"
+    mode: 777
+
+- name: "Run script"
+  shell: "/tmp/{{ lookup('env','DCNAME') }}.bash"
+  register: result
+
+- name: "Delete script"
+  file:
+    path: "/tmp/{{ lookup('env','DCNAME') }}.bash"
+    state: absent
+
+- debug:
+    var: result
