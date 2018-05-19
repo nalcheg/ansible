@@ -1,4 +1,4 @@
-- hosts: me
+- hosts: all
   become: true
   roles:
     - role: '../roles/apt-upgrade'
