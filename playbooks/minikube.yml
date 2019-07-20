@@ -1,0 +1,6 @@
+- hosts: minikube
+  roles:
+    - role: '../roles/docker'
+    - role: '../roles/kubectl'
+    - role: '../roles/minikube'
+    - role: '../roles/helm'

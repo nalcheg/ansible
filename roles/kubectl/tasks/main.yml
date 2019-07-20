@@ -1,0 +1,11 @@
+---
+- stat:
+    path: /usr/local/bin/kubectl
+  register: kubectl_exist
+
+- name: "Kubectl | Install kubectl binary"
+  shell: "curl -Lo kubectl https://storage.googleapis.com/kubernetes-release/release/{{kubectl_version}}/bin/linux/amd64/kubectl && chmod +x kubectl && install kubectl /usr/local/bin && rm -f kubectl"
+  args:
+    warn: no
+  when:
+    kubectl_exist.stat.exists == false

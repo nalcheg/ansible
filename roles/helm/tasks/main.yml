@@ -1,0 +1,11 @@
+---
+- stat:
+    path: /usr/local/bin/helm
+  register: helm_exist
+
+- name: "Helm | Download Helm"
+  shell: "cd /tmp ; curl -Lo helm.tar.gz {{helm_download_link}} && tar -zxvf helm.tar.gz && cd linux-amd64 && install helm /usr/local/bin && rm -fr /tmp/helm.tar.gz /tmp/linux-amd64"
+  args:
+    warn: no
+  when:
+    helm_exist.stat.exists == false

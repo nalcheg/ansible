@@ -1,9 +1,11 @@
-Update apt packages on localhost.
+Install role template.
+---
 ```bash
-ansible-playbook -i inventories/me playbooks/meAptUpgrade.yml
+ansible-playbook -i inventories/%INVENTORY_FILE% playbooks/%PLAYBOOK_WITH_ROLE%
 ```
 
-Example: delete existing Docker container by name, create/run new container.
+Install [Minikube](https://kubernetes.io/docs/setup/learning-environment/minikube) example (only for Debian Buster).
+---
 ```bash
-DCNAME=php-dev-71 ansible-playbook -i inventories/me playbooks/createAndRunDockerImages.yml
+time ansible-playbook -i inventories/minikube playbooks/minikube.yml
 ```

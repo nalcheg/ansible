@@ -1,0 +1,51 @@
+---
+- name: "Docker | Install packages for add repository"
+  package:
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2', 'software-properties-common']
+    state: latest
+    update_cache: yes
+
+- name: "Docker | Add Docker repo key"
+  shell: "curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -"
+  args:
+    warn: no
+
+- name: "Docker | Add Docker Debian repository (only for Debian Buster)"
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian buster stable"
+    state: present
+
+- name: "Docker | Update apt cache"
+  apt:
+    update_cache: yes
+
+- name: "Docker | Install Docker packages"
+  package:
+    name: ['docker-ce', 'docker-ce-cli', 'containerd.io']
+    state: latest
+    update_cache: yes
+
+- name: "Docker | Enable remote access to Docker API"
+  file:
+    path: /etc/systemd/system/docker.service.d/
+    state: directory
+  when:
+    docker_api_remote_accessable == true
+
+- name: "Docker | Enable remote access to Docker API"
+  copy:
+    src: override.conf
+    dest: "/etc/systemd/system/docker.service.d/startup_options.conf"
+    mode: 0600
+  when:
+    docker_api_remote_accessable == true
+
+- name: "Docker | Enable remote access to Docker API"
+  shell: "systemctl daemon-reload"
+  when:
+    docker_api_remote_accessable == true
+
+- name: "Docker | Enable remote access to Docker API"
+  shell: "systemctl restart docker.service"
+  when:
+    docker_api_remote_accessable == true

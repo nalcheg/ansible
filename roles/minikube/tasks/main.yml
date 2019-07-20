@@ -1,0 +1,26 @@
+---
+- name: "Minikube | Install socat for Helm Tiller"
+  package:
+    name: 'socat'
+    state: latest
+    update_cache: yes
+
+- stat:
+    path: /usr/local/bin/minikube
+  register: minikube_exist
+
+- name: "Minikube | Download Minikube binary"
+  shell: "curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && install minikube /usr/local/bin && rm -f minikube"
+  args:
+    warn: no
+  when: minikube_exist.stat.exists == false
+
+- name: "Minikube | Start Minikube with Docker driver"
+  shell: "minikube start --vm-driver=none --memory {{minikube_memory}} --disk-size {{minikube_disk}}"
+  register: minikubeStartOut
+
+- debug:
+    var: minikubeStartOut.stdout_lines
+
+- name: "Minikube | Kubectl set context to minikube"
+  shell: "kubectl config use-context minikube"
