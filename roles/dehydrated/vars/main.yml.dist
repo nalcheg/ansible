@@ -1,0 +1,5 @@
+---
+email_for_letsencrypt: "mail@gmail.com"
+domains:
+  - "domain.tld www.domain.tld ftp.domain.tld"
+  - "second-domain.tld www.second-domain.tld"

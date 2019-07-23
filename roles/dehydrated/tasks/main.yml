@@ -1,0 +1,27 @@
+---
+- name: "Dehydrated |"
+  package:
+    name: 'dehydrated'
+    state: latest
+    update_cache: yes
+
+- name: "Dehydrated |"
+  template:
+    src: config.j2
+    dest: /etc/dehydrated/config
+
+- name: "Dehydrated |"
+  template:
+    src: domains.txt.j2
+    dest: /etc/dehydrated/domains.txt
+
+- name: "Dehydrated |"
+  file:
+    path: /var/www/letsencrypt/.well-known/acme-challenge/
+    state: directory
+
+- name: "Dehydrated |"
+  copy:
+    src: letsencrypt.conf
+    dest: /etc/nginx/snippets/letsencrypt.conf
+    mode: 0644
