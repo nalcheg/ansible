@@ -6,13 +6,13 @@
     update_cache: yes
 
 - name: "Docker | Add Docker repo key"
-  shell: "curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -"
+  shell: "curl -fsSL https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg | apt-key add -"
   args:
     warn: no
 
-- name: "Docker | Add Docker Debian repository (only for Debian Buster)"
+- name: "Docker | Add Docker repository for Debian/Ubuntu"
   apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/debian buster stable"
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
     state: present
 
 - name: "Docker | Update apt cache"
